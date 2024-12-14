@@ -920,7 +920,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 243016562}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: efb40883b82230f45a804cd7e5ec181e, type: 3}
+  m_Script: {fileID: 11500000, guid: d9370225a2ca94276b870d5f87b0db55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   logLevel: 1
@@ -1576,34 +1576,10 @@ MonoBehaviour:
   NPCInteraction: {fileID: 579997509}
   onResponse:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 349414715}
-        m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
-        m_MethodName: set_text
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   onFixedResponse:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 349414715}
-        m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
-        m_MethodName: set_text
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   responsed: 0
   initialPrompt: you are a stone NPC in a video game. you are a hotel manager. don't
     break charactor, don't answer any question unrelated to your role.
@@ -2686,6 +2662,17 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0.00711}
   m_SizeDelta: {x: 15.9, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1061028106 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3259397422963199896, guid: 8b9bae388db946746b2487013ac2d920, type: 3}
+  m_PrefabInstance: {fileID: 6951008573555558597}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2da0c512f12947e489f739169773d7ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1092037381
 GameObject:
   m_ObjectHideFlags: 0
@@ -3313,14 +3300,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1348555285}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af0bb4df57061ff4d9f8b4e0846d324f, type: 3}
+  m_Script: {fileID: 11500000, guid: 3bc03a4c19604ea394e364f8fc632928, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maxLengthSec: 60
   loop: 0
   frequency: 16000
   chunksLengthSec: 0.5
-  echo: 0
+  echo: 1
   useVad: 1
   vadUpdateRateSec: 0.1
   vadContextSec: 30
@@ -3331,7 +3318,7 @@ MonoBehaviour:
   vadStop: 0
   dropVadPart: 1
   vadStopTime: 3
-  microphoneDropdown: {fileID: 138317678}
+  microphoneDropdown: {fileID: 0}
   microphoneDefaultLabel: Default microphone
 --- !u!1 &1382262379
 GameObject:
@@ -4631,6 +4618,8 @@ MonoBehaviour:
   chatText: {fileID: 738097935}
   sendBtn: {fileID: 1752158621}
   quitBtn: {fileID: 1190895853}
+  systemInputField: {fileID: 1061028106}
+  userInputField: {fileID: 1285878009}
   gptResponsed: 0
 --- !u!4 &1920277067
 Transform:
@@ -4846,6 +4835,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3979253915844695743, guid: 8b9bae388db946746b2487013ac2d920, type: 3}
       propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3979253915844695743, guid: 8b9bae388db946746b2487013ac2d920, type: 3}
+      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4481197785967928751, guid: 8b9bae388db946746b2487013ac2d920, type: 3}

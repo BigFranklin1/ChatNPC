@@ -29,6 +29,7 @@ public class ChatGPTCharacter : MonoBehaviour
    
     public async Task<bool> AskChatGPT()
     {
+        Debug.Log("****Uploaded Chat Messages:");
         foreach(ChatMessage m in messages){
             Debug.Log(m.Content);
         }

@@ -12,6 +12,8 @@ public class DialogueManager : MonoBehaviour
     public Button sendBtn; 
     public Button quitBtn;
     public TMP_InputField systemInputField;
+    public TMP_InputField userInputField;
+
     public bool gptResponsed;
 
     public static DialogueManager Instance { get; private set; }
@@ -29,7 +31,24 @@ public class DialogueManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
+    private void UpdateResponseUI(string message)
+    {
+        Debug.Log("response message:" + message);
+        // 可以在这里添加打字机效果
+        responseText.text = message;
+        // 或者使用协程实现打字机效果
+        StartCoroutine(TypewriterEffect(message));
+    }
+    // 可选：打字机效果
+    private IEnumerator TypewriterEffect(string message)
+    {
+        responseText.text = "";
+        foreach (char c in message)
+        {
+            responseText.text += c;
+            yield return new WaitForSeconds(0.01f);
+        }
+    }
     // 开始与NPC对话
     public void StartDialogue(GameObject npc)
     {
@@ -37,15 +56,18 @@ public class DialogueManager : MonoBehaviour
         currentNPC = npc;
         Debug.Log("开始和 " + currentNPC + " 对话");
         
-        dialogUI.SetActive(true); 
+        dialogUI.SetActive(true);
+        currentNPC.GetComponent<ChatGPTCharacter>().onResponse.AddListener(UpdateResponseUI);
+        currentNPC.GetComponent<ChatGPTCharacter>().onFixedResponse.AddListener(UpdateResponseUI);
 
         sendBtn.onClick.AddListener(TaskOnSendBtnClick);
         quitBtn.onClick.AddListener(TaskOnQuitBtnClick);
         systemInputField.onEndEdit.AddListener(OnSystemInputFieldEndEdit); // 新增监听
-
+        userInputField.onEndEdit.AddListener(TaskOnSendBtnClick);
         Cursor.lockState = CursorLockMode.None;
 
     }
+
     async void TaskOnSendBtnClick()
     {
         gptResponsed = false;
@@ -55,7 +77,15 @@ public class DialogueManager : MonoBehaviour
         gptResponsed = await currentNPC.GetComponent<ChatGPTCharacter>().AskChatGPT();
 
     }
+    async void TaskOnSendBtnClick(string txt)
+    {
+        gptResponsed = false;
+        Debug.Log("Send Btn clicked");
+        currentNPC.GetComponent<ChatGPTCharacter>().UpdateUserInputMessage(txt);
+        // currentNPC.GetComponent<ChatGPTCharacter>().AskChatGPT();
+        gptResponsed = await currentNPC.GetComponent<ChatGPTCharacter>().AskChatGPT();
 
+    }
     void TaskOnQuitBtnClick()
     {
         currentNPC.GetComponent<NPCInteraction>().EndDialogue();
@@ -71,11 +101,17 @@ public class DialogueManager : MonoBehaviour
         // 初始化对话UI逻辑
         dialogUI.SetActive(false);
         sendBtn.onClick.RemoveAllListeners();
-        systemInputField.onEndEdit.RemoveListener(OnSystemInputFieldEndEdit); // 移除监听
+        quitBtn.onClick.RemoveAllListeners();
+
+        currentNPC.GetComponent<ChatGPTCharacter>().onResponse.RemoveAllListeners();
+        currentNPC.GetComponent<ChatGPTCharacter>().onFixedResponse.RemoveAllListeners();
+
+        systemInputField.onEndEdit.RemoveAllListeners(); // 移除监听
+        userInputField.onEndEdit.RemoveAllListeners();
 
         Cursor.lockState = CursorLockMode.Locked;
         responseText.text = "";
-        Debug.Log("chatText: " + chatText.text);
+        chatText.text = "";
     }
 
     // public void PrepareEndDialogue()
